@@ -16,4 +16,4 @@ for book in books:
 #Retrieve librarian from a library
 from relationship_app.models import Librarian
 
-librarian = Librarian.objects.get(name=librarian_name)
+librarian=Librarian.objects.get(library=Library)
