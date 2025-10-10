@@ -1,12 +1,12 @@
 #Query all books by a specific author
 from relationship_app.models import Author, Book
 
-books = Book.objects.filter(author__name = "George")
+books = Book.objects.filter(author__name="George")
 
 #List all books on a library
 from relationship_app.models import Library
 
-library = Library.objects.get(name = "abc")
+library=Library.objects.get(name=library_name)
 books = library.books.all()
 
 for book in books:
@@ -15,4 +15,4 @@ for book in books:
 #Retrieve librarian from a library
 from relationship_app.models import Librarian
 
-librarian = Librarian.objects.get(name = "abc")
+librarian = Librarian.objects.get(name=librarian_name)
