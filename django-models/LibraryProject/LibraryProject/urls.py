@@ -19,7 +19,6 @@ from django.urls import include, path
 from .views import root_redirect
 
 urlpatterns = [
-    path('', root_redirect), #Redirect '/' to /books/
     path("books/", include("bookshelf.urls")),
     path("relationship/", include("relationship_app.urls")),
     path('admin/', admin.site.urls),
