@@ -1,0 +1,24 @@
+{% load static %}
+<!-- member_view.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Member Dashboard</title>
+    <link rel="stylesheet" href="{%static 'css/styles.css' %}">
+<head>
+<body>
+    <h1>Welcome, Member!</h1>
+
+    <section>
+        <h2>Book Inentory</h2>
+        <ul>
+            <li><a href="{% url 'list_book' %}">View List of All Books in Database</a></li>
+        </ul> 
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Bookshelf</p>
+    </footer>
+</body>
+</html>
