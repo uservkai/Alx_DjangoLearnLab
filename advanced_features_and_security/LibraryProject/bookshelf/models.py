@@ -14,7 +14,9 @@ class CustomUser(AbstractUser):
     bio = models.TextField(blank=True)
     date_of_birth = models.DateField()
     profile_photo = models.ImageField(upload_to='profile_photos/')
+    email = models.EmailField(unique=True)
     
+    USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ["date_of_birth", "profile_photo"]
     
     def __str__(self):
@@ -35,13 +37,15 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
     
-    def create_superuser(self, email, date_of_bith, password=None):
+    def create_superuser(self, email, date_of_birth, password=None):
         user=self.create_user(
             email,
             password=password,
-            date_of_birth=date_of_bith,
+            date_of_birth=date_of_birth,
         )
         user.is_admin = True
+        user.is_staff = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
     
