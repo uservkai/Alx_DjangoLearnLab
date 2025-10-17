@@ -10,17 +10,6 @@ class Book(models.Model):
     def __str__(self):
         return f"Book : {self.title} by {self.author} ({self.publication_year})"
 
-class CustomUser(AbstractUser):
-    bio = models.TextField(blank=True)
-    date_of_birth = models.DateField()
-    profile_photo = models.ImageField(upload_to='profile_photos/')
-    email = models.EmailField(unique=True)
-    
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ["date_of_birth", "profile_photo"]
-    
-    def __str__(self):
-        return self.username
     
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, date_of_birth, password=None):
@@ -48,4 +37,17 @@ class CustomUserManager(BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
+
+class CustomUser(AbstractUser):
+    bio = models.TextField(blank=True)
+    date_of_birth = models.DateField()
+    profile_photo = models.ImageField(upload_to='profile_photos/')
+    email = models.EmailField(unique=True)
     
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ["date_of_birth"]
+    
+    objects = CustomUserManager()
+    
+    def __str__(self):
+        return self.username    
