@@ -20,7 +20,7 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
     
-class MyUserManager(BaseUserManager):
+class CustomUserManager(BaseUserManager):
     def create_user(self, email, date_of_birth, password=None):
         #creates and saves users with the details
         if not email:
