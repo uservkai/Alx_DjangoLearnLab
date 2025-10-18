@@ -1,1 +1,5 @@
 .env
+__pycache__
+
+#DJANGO SECRET
+SECRET_KEY = 'django-insecure-*5vgpp@a&!npy+-n!pxc2g41k6z65q__ex39e4gr14#u)k^8-h'
