@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'rest_framework',
+    'api.apps.ApiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -143,16 +144,16 @@ CSP_STYLE_SRC = ("'self'", "fonts.googleapis.com")
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # SECURE COOKIES(enforce that cookies are sent over HTTPS only)
-SESSION_COOKIE_SECURE = True # Use secure cookies for sessions
-CSRF_COOKIE_SECURE = True    # Use secure cookies for CSRF protection
+#SESSION_COOKIE_SECURE = True # Use secure cookies for sessions
+#CSRF_COOKIE_SECURE = True    # Use secure cookies for CSRF protection
 
 #HTTPS enforcement
-SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True # Expire sessions when the browser closes
-SECURE_HSTS_SECONDS = 31536000 #1year  # Enable HTTP Strict Transport Security (HSTS)
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True   # Include subdomains in HSTS
-SECURE_HSTS_PRELOAD = True  # Preload HSTS list
+#SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
+#SESSION_EXPIRE_AT_BROWSER_CLOSE = True # Expire sessions when the browser closes
+#SECURE_HSTS_SECONDS = 31536000 #1year  # Enable HTTP Strict Transport Security (HSTS)
+#SECURE_HSTS_INCLUDE_SUBDOMAINS = True   # Include subdomains in HSTS
+#SECURE_HSTS_PRELOAD = True  # Preload HSTS list
 
 #secure headers implementation
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')   # Header to identify secure requests
-HTTP_X_FORWARDED_PROTO = 'https' # Indicate that the request is secure when behind a proxy 
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')   # Header to identify secure requests
+#HTTP_X_FORWARDED_PROTO = 'https' # Indicate that the request is secure when behind a proxy 
