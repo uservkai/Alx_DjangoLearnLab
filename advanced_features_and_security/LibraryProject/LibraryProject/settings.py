@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -132,3 +132,28 @@ LOGIN_REDIRECT_URL = "/accounts/profile"
 LOGOUT_REDIRECT_URL = "/accounts/profile"
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
+
+#Browser side protection
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+
+# Content Security Policy (CSP) settings
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", "ajax.googleapis.com")
+CSP_STYLE_SRC = ("'self'", "fonts.googleapis.com")
+
+# Email backend configuration
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# SECURE COOKIES
+SESSION_COOKIE_SECURE = True # Use secure cookies for sessions
+CSRF_COOKIE_SECURE = True    # Use secure cookies for CSRF protection
+
+#HTTPS enforcement
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True # Expire sessions when the browser closes
+SECURE_HSTS_SECONDS = 3600  # Enable HTTP Strict Transport Security (HSTS)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True   # Include subdomains in HSTS
+SECURE_HSTS_PRELOAD = True  # Preload HSTS list 
+
