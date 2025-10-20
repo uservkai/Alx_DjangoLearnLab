@@ -137,6 +137,7 @@ AUTH_USER_MODEL = 'bookshelf.CustomUser'
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
 
 # Content Security Policy (CSP) settings
 CSP_DEFAULT_SRC = ("'self'",)
@@ -146,7 +147,7 @@ CSP_STYLE_SRC = ("'self'", "fonts.googleapis.com")
 # Email backend configuration
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# SECURE COOKIES
+# SECURE COOKIES(enforce that cookies are sent over HTTPS only)
 SESSION_COOKIE_SECURE = True # Use secure cookies for sessions
 CSRF_COOKIE_SECURE = True    # Use secure cookies for CSRF protection
 
