@@ -156,5 +156,9 @@ SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True # Expire sessions when the browser closes
 SECURE_HSTS_SECONDS = 31536000 #1year  # Enable HTTP Strict Transport Security (HSTS)
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True   # Include subdomains in HSTS
-SECURE_HSTS_PRELOAD = True  # Preload HSTS list 
+SECURE_HSTS_PRELOAD = True  # Preload HSTS list
+
+#secure headers implementation
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')   # Header to identify secure requests
+HTTP_X_FORWARDED_PROTO = 'https' # Indicate that the request is secure when behind a proxy 
 
