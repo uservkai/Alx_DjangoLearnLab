@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .forms import BookForm
+from .forms import BookForm, ExampleForm
 from .models import Book
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required
@@ -8,6 +8,17 @@ from django.contrib.auth.decorators import permission_required
 # Create your views here.
 def index(request):
     return HttpResponse("Welcome to my bookshelf")
+
+def create_book(request):
+    if request.method == 'POST':
+        form = ExampleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('book_list')
+    else:
+            form = ExampleForm()
+    return render(request, 'bookshelf/form_example.html', {'form': form})
+
 
 #enforcing permissions in views
 @permission_required('bookshelf.can_view', raise_exception=True)
