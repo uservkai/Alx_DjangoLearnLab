@@ -154,7 +154,7 @@ CSRF_COOKIE_SECURE = True    # Use secure cookies for CSRF protection
 #HTTPS enforcement
 SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True # Expire sessions when the browser closes
-SECURE_HSTS_SECONDS = 3600  # Enable HTTP Strict Transport Security (HSTS)
+SECURE_HSTS_SECONDS = 31536000 #1year  # Enable HTTP Strict Transport Security (HSTS)
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True   # Include subdomains in HSTS
 SECURE_HSTS_PRELOAD = True  # Preload HSTS list 
 
