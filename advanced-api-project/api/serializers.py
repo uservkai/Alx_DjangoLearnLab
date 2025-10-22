@@ -13,7 +13,7 @@ class BookSerializer(serializers.ModelSerializer): # converts Book model instanc
         return value
 
 class AuthorSerializer(serializers.ModelSerializer): # converts Author model instances to JSON
-    books = BookSerializer(many =True, read_only=True) # nested serialization to include author's books
+    books = BookSerializer(many=True, read_only=True) # nested serialization to include author's books
         
     class Meta:
         model = Author
