@@ -10,6 +10,9 @@ class BookAPITestCase(APITestCase):
     def setUp(self):
         #create test users
         self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.token = Token.objects.create(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        
         self.other_user = User.objects.create_user(username='otheruser', password='otherpass')
         
         #Create test author and book
