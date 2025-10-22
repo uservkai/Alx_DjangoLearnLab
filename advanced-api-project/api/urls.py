@@ -12,6 +12,6 @@ urlpatterns = [
     path('api/booklist/', BookListView.as_view(), name = 'book-list'), #Lists all books
     path('api/books/<int:pk>/', BookDetailView.as_view(), name='book-detail'),#Retrieves details of a specific book by its ID
     path('api/books/create/', BookCreateView.as_view(), name='book-create'), #Adds a new book
-    path('api/books/<int:pk>/update/', BookUpdateView.as_view(), name='book-update'), #Updates an existing book
-    path('api/books/<int:pk>/delete/', BookDeleteView.as_view(), name='bok-delete'), #Removes a book 
+    path('api/books/update/<int:pk>/', BookUpdateView.as_view(), name='book-update'), #Updates an existing book
+    path('api/books/delete/<int:pk>/', BookDeleteView.as_view(), name='bok-delete'), #Removes a book 
 ]
