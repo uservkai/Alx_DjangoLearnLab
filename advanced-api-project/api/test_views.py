@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from .models import Book, Author
 from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 
 #testing creating, updating, deleting,  books
 class BookAPITestCase(APITestCase):
@@ -27,7 +28,7 @@ class BookAPITestCase(APITestCase):
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEquaL(response.data['title'], 'Book Two')
+        self.assertEqual(response.data['title'], 'Book Two')
         self.assertEqual(Book.objects.count(), 2)
         
     def test_create_book_unauthenticated(self):

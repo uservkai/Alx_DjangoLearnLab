@@ -28,8 +28,8 @@ class BookListView(generics.ListAPIView): #retrieves a list of all books
     
     #filtering , serching and ordering capabilities
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['title', 'author', 'publication_year'] # allows filtering by title, author, publication year
-    search_fields = ['title', 'author'] # allows searching by title and author name
+    filterset_fields = ['title', 'author__name', 'publication_year'] # allows filtering by title, author, publication year
+    search_fields = ['title', 'author__name'] # allows searching by title and author name
     ordering_fields = ['title', 'publication_year'] # allows ordering by title and publication year
     
 class BookDetailView(generics.RetrieveAPIView): #retrieves details of a specific book by its ID
