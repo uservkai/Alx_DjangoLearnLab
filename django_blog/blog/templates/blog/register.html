@@ -7,7 +7,7 @@
     {% csrf_token %}
     {{ form.as_p }}
     {% if form.errors %}
-        <p style="coloured:red;">Please correct the errors below.</p>
+        <p class="error-message">Please correct the errors below.</p>
     {% endif %}>
 <button type="submit">Register</button>
 </form>

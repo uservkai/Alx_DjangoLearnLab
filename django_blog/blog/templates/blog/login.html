@@ -6,7 +6,7 @@
         {% csrf_token %}
         {{ form.as_p }}
         {% if form.errors %}
-            <p style="colour:red;">Invalid username or password. Please try again.</p>
+            <p class="error-message">Invalid username or password. Please try again.</p>
         {% endif %}
         <button type="submit">Login</button>
     </form>

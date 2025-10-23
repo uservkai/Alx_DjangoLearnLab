@@ -1,0 +1,86 @@
+body {
+    /*sets default font and entire page background colour*/
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3e4e4;
+}
+header {
+    /* green background and vertical padding for header*/
+    background-color: #4CAF50;
+    padding: 10px 0;
+}
+
+nav ul {
+    /*removes bulleting and centres navigation items horizontally*/
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    /* horizontal spacing of navigation items*/
+    margin: 0 15px;
+}
+
+nav a {
+    /*color and font of navigation links*/
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px;
+}
+
+nav a:hover {
+    /*hover effect with darker background for navigation links*/
+    background-color: #555;
+    border-radius: 4px;
+}
+
+main {
+    /*adds padding around main content*/
+    padding: 20px;
+}
+
+footer {
+    /*bright background and centered footer*/
+    background-color: #e6f4d9;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+}
+/* Form styles */
+form {
+    /*form container with white background, padding and centered*/
+    background-color: white;
+    padding: 20px;
+    border-radius: 6px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+input, textarea, button {
+    /*makes form elements full width with padding and rounded borders*/
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.success-message {
+    /*messages with green color and bold font*/
+    color: green;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    /*messages with red color and bold font*/
+    color: red;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
