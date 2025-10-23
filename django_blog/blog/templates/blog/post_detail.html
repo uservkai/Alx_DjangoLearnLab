@@ -1,0 +1,11 @@
+<h2>{{ object.title }}</h2>
+<p>{{ object.content }}</p>
+<p><strong>Author:</strong> {{ object.author.username }}</p>
+<p><strong>Published:</strong> {{ object.published_date }}</p>
+
+{% if user == object.author %} <!-- Only show edit/delete if the user is the author -->
+  <a href="{% url 'post-update' object.pk %}">Edit</a> |
+  <a href="{% url 'post-delete' object.pk %}">Delete</a>
+{% endif %}
+
+<a href="{% url 'post-list' %}">Back to Posts</a>
