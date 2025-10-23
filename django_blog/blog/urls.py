@@ -1,6 +1,7 @@
 from django.contrib.auth.views import LoginView, LogoutView #import built-in auth views
 from django.urls import path
 from . import views
+from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView
 
 
 urlpatterns = [
@@ -9,9 +10,9 @@ urlpatterns = [
     path('register/', views.register, name='register'), #register view
     path('profile/', views.profile_view, name='profile'), #profile view
     #path search search post via query parameter
-    #path post list lists all blog posts
-    #path post detail shows individual blog post details
-    #path post create creates new blog post
-    #path post update updates existing blog post**
-    #path post delete deletes existing blog post**
+    path('posts/', PostListView.as_view(), name='post-list'), #path post list shows all blog posts
+    path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
+    path('posts/new/', PostCreateView.as_view(), name='post-create'),
+    path('post/<int:pk>/edit/', PostUpdateView.as_view(), name='post-update'), #path post update updates existing blog post
+    path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'), #path post delete deletes existing blog post
 ]
