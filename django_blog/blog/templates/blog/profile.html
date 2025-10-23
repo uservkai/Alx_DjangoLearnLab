@@ -1,9 +1,17 @@
 {% extends 'blog/base.html' %} 
+{% block title %}Profile{% endblock %} <!--sets the page title-->>
 {% block content %}
     <h2>Update Profile</h2>
-    <form method="post" enctype="multipart/form_data">
-        {% csrf_token %}
+    
+    {% if messages %} <!--displays success or error messages from views.py-->>
+        {% for message in messages %}    
+            <p style ="color:green;">{{ message}}</p>    
+        {% endfor %}    
+    {% endif %}        
+    
+    <form method="post" enctype="multipart/form_data"> <!--for uploading files--(eg profile pic)-->>
+        {% csrf_token %}  <!--security token to prevent CSRF attacks-->>
         {{ form.as_p}}
         <button type="submit">Save</button>
     </form>
-    {% endblock %}
+{% endblock %}

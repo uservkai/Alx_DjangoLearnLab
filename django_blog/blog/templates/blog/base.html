@@ -1,13 +1,47 @@
 {% load static %} <!--loads the css and js file -->
 <!DOCTYPE html>
 <html lang="en">
-<head>    <!-- head section-->
+<head>    <!-- head section--><!-- sets metadata and links to stylesheets --><!-- title block to be overridden by child templates-->
     <meta charset="UTF-8">
     <title>{% block title %}My Blog{% endblock %}</title>
     <link rel="stylesheet" href="{%static 'blog/css/styles.css' %}">
 </head>
 </body>
     <header>
-        <nav>
+        <nav> <!--navigation bar--><!--shows different links based on user authentication status-->
             <ul>
-                <li><a href="{% ur   
+                <li><a href="{% url 'post-list' %}">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'post-create' %}">New Post</a></li>
+                    <li><a href="{% url 'profile' %}">Profile</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %} <!--conditional navigation links based on authentication status-->
+                
+                <li> <!--sorting options for blog posts--><!--links to sorted views-->
+                    <a href="{% url 'post-list' %}?sort=latest">Latest</a>
+                    <a href="{% url 'post-list' %}?sort=popular">Popular</a>
+                </li>
+                
+                <li> <!--search form--><!--allows users to search blog posts-->
+                    <form method="get" action="{% url 'post-list' %}">
+                        <input type="text" name="q" placeholder="Search...">
+                        <button type="submit">Search</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </header> <!--end of header-->
+    <main>
+        {% block content %}
+        {% endblock %} <!--main content block to be overridden by child templates-->
+    </main>
+    <footer> <!--footer section--><!--displays copyright information-->
+        <p>&copy; 2025 My Blog</p>
+    </footer>
+
+    <script src="{% static 'blog/js/scripts.js' %}"></script> <!--links to external JavaScript file-->
+</body>
+</html> 

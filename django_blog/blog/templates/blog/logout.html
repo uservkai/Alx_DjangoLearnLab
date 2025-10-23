@@ -1,0 +1,6 @@
+{% extends 'blog/base.html' %}
+{% block title %}Logout{% endblock %} <!--sets the page title-->
+{% block content %}
+    <h2>You have been logged out.</h2>
+    <p><a href="{% url 'login' %}">Click here to log in again.</a></p>
+{% endblock %}
