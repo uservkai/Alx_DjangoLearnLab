@@ -11,7 +11,8 @@
     
     <form method="post" enctype="multipart/form_data"> <!--for uploading files--(eg profile pic)-->>
         {% csrf_token %}  <!--security token to prevent CSRF attacks-->>
-        {{ form.as_p}}
+        {{ user_form.as_p}}
+        {{ profile_form.as_p}}
         <button type="submit">Save</button>
     </form>
 {% endblock %}
