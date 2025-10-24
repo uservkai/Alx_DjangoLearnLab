@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
-from .forms import CustomUserCreationForm, ProfileForm, UserEmailForm, PostForm
+from .forms import CustomUserCreationForm, ProfileForm, UserEmailForm, PostForm, CommentForm
 from django.contrib import messages # import messages framework
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post
+from .models import Post, Comment
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 def register(request): # registration of new user
@@ -89,3 +90,55 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         post = self.get_object()
         return self.request.user == post.author
+    
+
+#setting up functon based views
+@login_required
+def add_comment(request, post_id):   #adding comments to blog posts
+    post = get_object_or_404(Post, id=post_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.author = request.user
+            comment.save()
+            messages.success(request, "Comment added successfully!")
+            return redirect('post-detail', pk=post.id)
+    else:
+        form = CommentForm()
+    return render(request, 'blog/add_comment.html', {'form': form, 'post': post})
+
+#editing a comment
+@login_required
+def edit_comment(request, comment_id):
+    comment = get_object_or_404(Comment, pk = comment_id)
+    if request.user != comment.author:
+        messages.error(request, "You are not authorized to edit this comment.")
+        return redirect('post-detail', pk=comment.post.pk)
+    
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Comment updated successfully!")
+            return redirect('post-detail', pk=comment.post.pk)
+    else:
+        form = CommentForm(instance=comment)
+    return render(request, 'blog/edit_comment.html', {'form': form, 'comment': comment})
+
+#deleting a comment
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    if request.user != comment.author:
+        messages.error(request, "You are not authorized to delete this comment.")
+        return redirect('post-detail', pk=comment.post.pk)
+    
+    if request.method == 'POST':
+        post_pk = comment.post.pk
+        comment.delete()
+        messages.success(request, "Comment deleted successfully!")
+        return redirect('post-detail', pk=post_pk)
+    
+    return render(request, 'blog/delete_comment.html', {'comment': comment})

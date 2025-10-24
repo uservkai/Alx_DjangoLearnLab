@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile, Post
+from .models import Profile, Post, Comment
 
 #registration form for new users
 class CustomUserCreationForm(UserCreationForm):
@@ -40,3 +40,15 @@ class PostForm(forms.ModelForm):
             if not content or len(content) < 10:
                 raise forms.ValidationError("Content must be at least 10 characters long.")
             return content
+        
+#form for adding comments to blog posts
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('content',)
+        
+    def clean_content(self):
+        content = self.cleaned_data.get('content')
+        if not content or len(content) < 3:
+            raise forms.ValidationError("Comment must be at least 3 characters long.")
+        return content

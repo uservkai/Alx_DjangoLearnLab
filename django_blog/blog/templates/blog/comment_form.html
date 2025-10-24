@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<h2>{% if comment %}Edit{% else %}Add{% endif %} Comment</h2>
+
+<!-- Comment form for adding or editing-->
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% if comment %}Update{% else %}Submit{% endif %} Comment</button>
+</form>
+
+<!-- Link back to the post detail page -->
+<a href="{% url 'post-detail' post.pk %}">Back to Post</a>
+{% endblock %}
