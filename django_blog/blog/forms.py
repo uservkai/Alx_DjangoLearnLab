@@ -29,13 +29,13 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ('title', 'content') #author and published_date are set automatically
         
-        def clean_title(self):
+    def clean_title(self):
             title = self.cleaned_data.get('title')
             if not title or len(title) < 5:
                 raise forms.ValidationError("Title must be at least 5 characters long.")
             return title
         
-        def clean_content(self):
+    def clean_content(self):
             content = self.cleaned_data.get('content')
             if not content or len(content) < 10:
                 raise forms.ValidationError("Content must be at least 10 characters long.")

@@ -2,11 +2,12 @@ from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm, ProfileForm, UserEmailForm, PostForm, CommentForm
 from django.contrib import messages # import messages framework
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from .models import Post, Comment
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404
+from .models import Profile
 
 # Create your views here.
 def register(request): # registration of new user
@@ -14,15 +15,21 @@ def register(request): # registration of new user
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Account created successfully! You can now log in.") 
             return redirect('login')
     else:
         form = CustomUserCreationForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'blog/register.html', {'form': form})
 
 @login_required #ensure only logged-in users can access
-def profile_view(request):
+def profile(request):
     user = request.user
-    profile = user.profile
+    
+     # Ensure profile exists
+    try:
+        profile = user.profile
+    except Profile.DoesNotExist:
+        profile = Profile.objects.create(user=user)
     
     if request.method == 'POST':
         email_form = UserEmailForm(request.POST, instance=user)
@@ -60,7 +67,6 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = 'blog/post_form.html'
-    fields = ['title', 'content']
     
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -128,3 +134,13 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         return self.request.user == self.get_object().author
+
+# HomePage View
+class HomePageView(TemplateView):
+    template_name = 'blog/home.html'
+    
+    #method to add recent posts to homepage
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['posts'] = Post.objects.all().order_by('-published_date')[:5] # latest 5 posts
+        return context

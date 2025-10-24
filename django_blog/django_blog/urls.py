@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from blog.views import HomePageView, profile
 
 urlpatterns = [
+    path('', HomePageView.as_view(), name='home'), #homepage
+    path('profile/', profile, name='profile'), #profile page
     path('admin/', admin.site.urls),
-    path('', include('blog.urls')), #include blog app urls
+    path('posts/', include('blog.urls')), #include blog app urls
 ]
