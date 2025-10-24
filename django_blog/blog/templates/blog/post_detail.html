@@ -1,4 +1,4 @@
-{% extends 'bolg/base.html' %}
+{% extends 'blog/base.html' %}
 {% block content %}
 
 <!--post details-->
@@ -18,7 +18,7 @@
 <div class="comments">
 <h3>Comments</h3>
 
-  {% for comment in object.comment_set.all %}
+  {% for comment in object.comments.all %}
     <div class="comment">
       <p>{{comment.content}}</p>
       <p><small>By {{ comment.author.username }} on {{ comment.created_at }}</small></p>
@@ -35,7 +35,7 @@
 </div>
 
 <!--add comment form-->
-{%if user.is.authenticated%}
+{%if user.is_authenticated%}
   <div class="comment-form">
     <h4>Add a Comment</h4>
     <form method="post" action="{% url 'add-comment' object.pk %}">
