@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from taggit.managers import TaggableManager
 
 # Create your models here.
 class Post(models.Model): # blog post model
@@ -7,7 +8,8 @@ class Post(models.Model): # blog post model
     content = models.TextField()
     published_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    tag = models.ManyToManyField('Tag', blank=True)
+    tags = TaggableManager() #replaces the ManyToManyField for tags
+    # tags = models.ManyToManyField('Tag', blank=True)
     
     def __str__(self):
         return f"{self.title} by {self.author.username}"

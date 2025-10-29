@@ -2,6 +2,22 @@
 
 <form method="POST">
   {% csrf_token %}
+  {{ form.non_field_errors }}
+
+  {{ form.title.label_tag }}<br>
+  {{ form.title }} <br>
+  {{ form.title.errors }}
+
+  {{ form.content.label_tag }}<br>
+  {{ form.content }} <br>
+  {{ form.content.errors }}
+
+  {#-- Added tag field rendering --#}
+  {{ form.tags.label_tag }}<br>
+  {{ form.tags }} <br>
+  <small>{{ form.tags.help_text }}</small><br>
+  {{ form.tags.errors }}
+
   {{ form.as_p }}
   <button type="submit">{% if object %}Update{% else %}Create{% endif %}</button>
 </form>

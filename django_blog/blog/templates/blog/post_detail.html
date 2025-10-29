@@ -1,6 +1,17 @@
 {% extends 'blog/base.html' %}
 {% block content %}
 
+{#-- Display associated tags using django-taggit --#}
+{% if object.tags.all %}
+  <p><strong>Tags:</strong>
+    {% for tag in object.tags.all %}
+      <a href="{% url 'post-by-tag' 'tag.name' %}">{{ tag.name }}</a>{% if not forloop.last %},
+      {% endfor %}
+  </p>
+  {% else %}
+</p><em>No tags</em></p>
+{% endif %}
+
 <!--post details-->
 <h2>{{ object.title }}</h2>
 <p>{{ object.content }}</p>

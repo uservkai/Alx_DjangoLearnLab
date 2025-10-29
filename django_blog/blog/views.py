@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404
 from .models import Profile
+from django.db.models import Q
 
 # Create your views here.
 def register(request): # registration of new user
@@ -96,6 +97,43 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         post = self.get_object()
         return self.request.user == post.author
+
+#show all posts by a particular tag
+class PostsByTagListView(ListView):
+    model = Post
+    template_name = 'blog/posts_by_tag.html'
+    context_object_name = 'posts'
+    
+    #filter post by tag name passed in URL
+    def get_queryset(self):
+        tag_name = self.kwargs.get('tag_name')
+        return Post.objects.filter(tags__name__inexact=tag_name).order_by('-published_date')
+    
+    #add tag name to context for display
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tag'] = self.kwargs.get('tag_name')
+        return context
+    
+#filter posts by a search query
+class SearchResultsView(ListView):
+    model = Post
+    template_name = 'blog/search_results.html'
+    context_object_name = 'posts'
+    
+    #filter posts based on query parameter 'q'
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        return Post.objects.filter(
+            Q(title__icontains=query) | Q(content__icontains=query) | Q(tags__name__icontains=query)
+        ).distinct()
+    
+    #add query to context for display in template    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.request.GET.get('q')
+        return context
+        
     
 #Setting CBV for comments
 # Create Comment
