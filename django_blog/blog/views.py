@@ -99,7 +99,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user == post.author
 
 #show all posts by a particular tag
-class PostsByTagListView(ListView):
+class PostByTagListView(ListView):
     model = Post
     template_name = 'blog/posts_by_tag.html'
     context_object_name = 'posts'
