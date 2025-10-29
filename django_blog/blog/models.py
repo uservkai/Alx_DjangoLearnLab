@@ -7,6 +7,7 @@ class Post(models.Model): # blog post model
     content = models.TextField()
     published_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    tag = models.ManyToManyField('Tag', blank=True)
     
     def __str__(self):
         return f"{self.title} by {self.author.username}"
@@ -30,3 +31,8 @@ class Comment(models.Model): # model for comments on blog posts
     def __str__(self):
         return f"Comment by {self.author.username} on {self.post.title}"
     
+class Tag(models.Model): #model for tags associated with posts
+    name = models.CharField(max_length=50, unique=True)
+    
+    def __str__(self):
+        return self.name
