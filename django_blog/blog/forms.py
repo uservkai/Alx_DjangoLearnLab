@@ -29,12 +29,14 @@ class PostForm(forms.ModelForm):
     tags = TagField(
         required=False,
         help_text="Enter tags separated by commas.",
-        widget=TagWidget(),
-    )
+        )
     
     class Meta:
         model = Post
         fields = ('title', 'content', 'tags') #author,tag and published_date are set automatically
+        widgets ={
+            'tags': TagWidget(), #use TagWidget for better tag input
+        }
         
     def clean_title(self):
             title = self.cleaned_data.get('title')
