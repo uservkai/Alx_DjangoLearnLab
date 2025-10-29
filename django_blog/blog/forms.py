@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile, Post, Comment
-from taggit.forms import TagField
+from taggit.forms import TagField, TagWidget
 
 #registration form for new users
 class CustomUserCreationForm(UserCreationForm):
@@ -26,11 +26,15 @@ class UserEmailForm(forms.ModelForm):
         
 #form for creating and updating blog posts
 class PostForm(forms.ModelForm):
-    tags = TagField(required=False, help_text="Enter tags separated by commas.")
+    tags = TagField(
+        required=False,
+        help_text="Enter tags separated by commas.",
+        widget=TagWidget(),
+    )
     
     class Meta:
         model = Post
-        fields = ('title', 'content', 'tag') #author,tag and published_date are set automatically
+        fields = ('title', 'content', 'tags') #author,tag and published_date are set automatically
         
     def clean_title(self):
             title = self.cleaned_data.get('title')

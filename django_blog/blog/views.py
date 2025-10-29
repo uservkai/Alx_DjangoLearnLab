@@ -112,7 +112,7 @@ class PostsByTagListView(ListView):
     #add tag name to context for display
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tag'] = self.kwargs.get('tag_name')
+        context['tags'] = self.kwargs.get('tag_name')
         return context
     
 #filter posts by a search query
